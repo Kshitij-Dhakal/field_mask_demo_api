@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package org.example;
+
+option go_package = "pb";
+option java_package = "org.example.rpc";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/field_mask.proto";
+
+import "user.proto";
+
+service UserService {
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc GetUser(GetUserRequest) returns (User);
+  rpc CreateUser(CreateUserRequest) returns (User);
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+message ListUsersRequest {
+  string parent = 1;
+  int32 page_size = 2;
+  string page_token = 3;
+  //added
+  google.protobuf.FieldMask mask = 4;
+}
+
+message ListUsersResponse {
+  repeated User Users = 1;
+  string next_page_token = 2;
+}
+
+message GetUserRequest {
+  string name = 1;
+  //added
+  google.protobuf.FieldMask mask = 2;
+}
+
+message CreateUserRequest {
+  string parent = 1;
+  string User_id = 2;
+  User User = 3;
+}
+
+message UpdateUserRequest {
+  User User = 1;
+  google.protobuf.FieldMask mask = 2;
+}
+
+message DeleteUserRequest {
+  string name = 1;
+}

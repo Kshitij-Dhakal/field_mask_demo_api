@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package org.example;
+
+option go_package = "pb";
+option java_package = "org.example.pb";
+option java_multiple_files = true;
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string zipCode = 4;
+}
+
+message User {
+  string id = 1;
+  string name = 2;
+  string picture = 3;
+  string email = 4;
+  string password = 5;
+  Address address = 6;
+  int64 created = 7;
+  int64 updated = 8;
+}
